@@ -1,4 +1,6 @@
 PShape a;
+PShape b;
+PShape w;
 float posX = 0;
 float posY = 0;
 float angle = 0;
@@ -8,29 +10,53 @@ boolean mirrorY = false;
 
 void setup() {
   size(1000, 1000, P2D);
+  
   a = createShape();
-
   a.beginShape();
   a.fill(200, 30, 255);
-  a.vertex(400, 100);
-  a.vertex(550, 100);
-  a.vertex(750, 700);
-  a.vertex(600, 700);
-  a.vertex(540, 500);
-  a.vertex(410, 500);
-  a.vertex(350, 700);
-  a.vertex(200, 700);
-  a.vertex(400, 100);
-  a.beginContour();
-  a.vertex(510, 400);
-  a.vertex(475, 275);
-  a.vertex(440, 400);
-  a.endContour();
+  a.vertex(150, 200);
+  a.vertex(300, 200);
+  a.vertex(400, 600);
+  a.vertex(300, 600);
+  a.vertex(225, 300);
+  a.vertex(150, 600);
+  a.vertex(50, 600);
+  a.vertex(150, 200);
   a.endShape(CLOSE);
+  
+  b = createShape();
+  b.beginShape();
+  b.fill(200, 30, 255);
+  b.noStroke();
+  b.vertex(198, 400);
+  b.vertex(252, 400);
+  b.vertex(265, 450);
+  b.vertex(185, 450);
+  b.endShape(CLOSE);
+  
+  w = createShape();
+  w.beginShape();
+  w.fill(200, 30, 255);
+  w.vertex(850, 200);
+  w.vertex(950, 200);
+  w.vertex(850, 600);
+  w.vertex(750, 600);
+  w.vertex(700, 350);
+  w.vertex(650, 600);
+  w.vertex(550, 600);
+  w.vertex(450, 200);
+  w.vertex(550, 200);
+  w.vertex(600, 450);
+  w.vertex(650, 200);
+  w.vertex(750, 200);
+  w.vertex(800, 450);
+  w.vertex(850, 200);
+  w.endShape(CLOSE);
+  
 }
 
 void draw() {
-  background(0);
+  background(255);
   
   pushMatrix();
   translate(width / 2 + posX, height / 2 + posY);
@@ -46,6 +72,9 @@ void draw() {
   scale(scaleFactor);
 
   shape(a, -450, -400);
+  shape(b, -450, -400);
+  shape(w, -450, -400);
+
   popMatrix();
 }
 
