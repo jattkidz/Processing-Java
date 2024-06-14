@@ -1,212 +1,200 @@
 float pitch = 0;
 float yaw = 0;
 float roll = 0;
+float posX = 0;
+float posY = 0;
+float posZ = 0;
+float scaleFactor = 1;
+boolean mirrorX = false;
+boolean mirrorY = false;
 boolean upPressed, downPressed, leftPressed, rightPressed, ltPressed, gtPressed;
 PShape Aswangga;
 
 void setup() {
   size(1000, 1000, P3D);
   Aswangga = createShape(GROUP);
- 
-  //Huruf A
-  PShape Adepan = createShape();
-  Adepan.beginShape();
-  Adepan.fill(200, 10, 255);
-  Adepan.vertex(120, 0, 0);
-  Adepan.vertex(0, 300, 0);  
-  Adepan.vertex(80, 300, 0);  
-  Adepan.vertex(150, 90, 0);
-  Adepan.vertex(220, 300, 0);
-  Adepan.vertex(300, 300, 0);
-  Adepan.vertex(180, 0, 0);
-  Adepan.endShape(CLOSE);
-  
-  PShape Ahorizontaldepan = createShape();
-  Ahorizontaldepan.beginShape();
-  Ahorizontaldepan.fill(200, 10, 255);
-  Ahorizontaldepan.vertex(123, 170, 0);
-  Ahorizontaldepan.vertex(103, 230, 0);
-  Ahorizontaldepan.vertex(196, 230, 0);
-  Ahorizontaldepan.vertex(176, 170, 0);
-  Ahorizontaldepan.endShape(CLOSE);
-  
-  PShape Abelakang = createShape();
-  Abelakang.beginShape();
-  Abelakang.fill(200, 10, 255);
-  Abelakang.vertex(120, 0, -50);
-  Abelakang.vertex(0, 300, -50);  
-  Abelakang.vertex(80, 300, -50);  
-  Abelakang.vertex(150, 90, -50);
-  Abelakang.vertex(220, 300, -50);
-  Abelakang.vertex(300, 300, -50);
-  Abelakang.vertex(180, 0, -50);
-  Abelakang.endShape(CLOSE);
-  
-  PShape Ahorizontalbelakang = createShape();
-  Ahorizontalbelakang.beginShape();
-  Ahorizontalbelakang.fill(200, 10, 255);
-  Ahorizontalbelakang.vertex(123, 170, -50);
-  Ahorizontalbelakang.vertex(103, 230, -50);
-  Ahorizontalbelakang.vertex(196, 230, -50);
-  Ahorizontalbelakang.vertex(176, 170, -50);
-  Ahorizontalbelakang.endShape(CLOSE);
-  
-  //Mengatur ketebalan atau lebar dari huruf 3d
-  PShape A1 = createShape();
-  A1.beginShape();
-  A1.fill(200, 10, 255);
-  addDepth(A1, 120, 0, 0, 0, 300, 0, 0, 300, -50, 120, 0, -50);
-  A1.endShape(CLOSE);
-   
-  PShape A2 = createShape();
-  A2.beginShape();
-  A2.fill(200, 10, 255);
-  addDepth(A2, 0, 300, 0, 80, 300, 0, 80, 300, -50, 0, 300, -50);
-  A2.endShape(CLOSE);
- 
-  PShape A3 = createShape();
-  A3.beginShape();
-  A3.fill(200, 10, 255);
-  addDepth(A3, 80, 300, 0, 150, 90, 0, 150, 90, -50, 80, 300, -50);
-  A3.endShape(CLOSE);
-  
-  PShape A4 = createShape();
-  A4.beginShape();
-  A4.fill(200, 10, 255);
-  addDepth(A4, 150, 90, 0, 220, 300, 0, 220, 300, -50, 150, 90, -50);
-  A4.endShape(CLOSE);
-  
-  PShape A5 = createShape();
-  A5.beginShape();
-  A5.fill(200, 10, 255);
-  addDepth(A5, 220, 300, 0, 300, 300, 0, 300, 300, -50, 220, 300, -50);
-  A5.endShape(CLOSE);
-  
-  PShape A6 = createShape();
-  A6.beginShape();
-  A6.fill(200, 10, 255);
-  addDepth(A6, 300, 300, 0, 180, 0, 0, 180, 0, -50, 300, 300, -50);
-  A6.endShape(CLOSE);
-  
-  PShape A7 = createShape();
-  A7.beginShape();
-  A7.fill(200, 10, 255);
-  addDepth(A7, 180, 0, 0, 120, 0, 0, 120, 0, -50, 180, 0, -50);
-  A7.endShape(CLOSE);
-  
-  PShape A8 = createShape();
-  A8.beginShape();
-  A8.fill(200, 10, 255);
-  addDepth(A8, 123, 170, 0, 176, 170, 0, 176, 170, -50, 123, 170, -50);
-  A8.endShape(CLOSE);
-  
-  PShape A9 = createShape();
-  A9.beginShape();
-  A9.fill(200, 10, 255);
-  addDepth(A9, 103, 230, 0, 196, 230, 0, 196, 230, -50, 103, 230, -50);
-  A9.endShape(CLOSE);
-  
-Aswangga.addChild(Adepan);
-Aswangga.addChild(Ahorizontaldepan);
-Aswangga.addChild(Abelakang);
-Aswangga.addChild(Ahorizontalbelakang);
-Aswangga.addChild(A1);
-Aswangga.addChild(A2);
-Aswangga.addChild(A3);
-Aswangga.addChild(A4);
-Aswangga.addChild(A5);
-Aswangga.addChild(A6);
-Aswangga.addChild(A7);
-Aswangga.addChild(A8);
-Aswangga.addChild(A9);
-  
+  createLetterA();
+  createLetterW();
   centerObject(Aswangga);
 }
 
 void draw() {
-  translate(width/2, height/2, 0);
-  background(0);
+  translate(width / 2 + posX, height / 2 + posY, posZ);
+  background(255);
+  lights();
   fill(200, 10, 255);
   noStroke();
   
-  if (upPressed) {
-    pitch -= radians(1);
-  }
-  if (downPressed) {
-    pitch += radians(1);
-  }
-  if (leftPressed) {
-    yaw -= radians(1);
-  }
-  if (rightPressed) {
-    yaw += radians(1);
-  }
-  
-  if (ltPressed) {
-    roll -= radians(1);
-  }
-  if (gtPressed) {
-    roll += radians(1);
-  }
+  if (upPressed) pitch -= radians(1);
+  if (downPressed) pitch += radians(1);
+  if (leftPressed) yaw -= radians(1);
+  if (rightPressed) yaw += radians(1);
+  if (ltPressed) roll -= radians(1);
+  if (gtPressed) roll += radians(1);
 
-  pitch = pitch % TWO_PI;
-  yaw = yaw % TWO_PI;
-  roll = roll % TWO_PI;
+  pitch %= TWO_PI;
+  yaw %= TWO_PI;
+  roll %= TWO_PI;
   
+  if (mirrorX) scale(-1, 1, 1);
+  if (mirrorY) scale(1, -1, 1);
+
   rotateX(pitch);
   rotateY(yaw);
   rotateZ(roll);
+  scale(scaleFactor);
+  
   shape(Aswangga);
 }
 
 void keyPressed() {
-  if (key == 'w') {
-    upPressed = true;
-  }
-  if (key == 's') {
-    downPressed = true;
-  }
-  if (key == 'a') {
-    leftPressed = true;
-  }
-  if (key == 'd') {
-    rightPressed = true;
-  }
-  if (key == 'q') {
-    ltPressed = true;
-  }
-  if (key == 'e') {
-    gtPressed = true;
-  }
+  if (key == 'w') upPressed = true;
+  if (key == 's') downPressed = true;
+  if (key == 'a') leftPressed = true;
+  if (key == 'd') rightPressed = true;
+  if (key == 'q') ltPressed = true;
+  if (key == 'e') gtPressed = true;
+  if (key == 'i') posZ += 10;
+  if (key == 'k') posZ -= 10;
+  if (key == '+') scaleFactor *= 1.1;
+  if (key == '-') scaleFactor *= 0.9;
+  if (key == 'l') mirrorX = !mirrorX;
+  if (key == 'm') mirrorY = !mirrorY;
 }
 
 void keyReleased() {
-  if (key == 'w') {
-    upPressed = false;
-  }
-  if (key == 's') {
-    downPressed = false;
-  }
-  if (key == 'a') {
-    leftPressed = false;
-  }
-  if (key == 'd') {
-    rightPressed = false;
-  }
-  if (key == 'q') {
-    ltPressed = false;
-  }
-  if (key == 'e') {
-    gtPressed = false;
-  }
+  if (key == 'w') upPressed = false;
+  if (key == 's') downPressed = false;
+  if (key == 'a') leftPressed = false;
+  if (key == 'd') rightPressed = false;
+  if (key == 'q') ltPressed = false;
+  if (key == 'e') gtPressed = false;
 }
 
-void addDepth(PShape AN, float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3, float x4, float y4, float z4){
-  AN.vertex(x1, y1, z1);
-  AN.vertex(x2, y2, z2);
-  AN.vertex(x3, y3, z3);
-  AN.vertex(x4, y4, z4);
-  AN.vertex(x1, y1, z1);
+void createLetterA() {
+  // Front face of A
+  PShape Adepan = createShape();
+  Adepan.beginShape();
+  Adepan.fill(200, 30, 255);
+  Adepan.vertex(150, 200, 0);
+  Adepan.vertex(300, 200, 0);
+  Adepan.vertex(400, 600, 0);
+  Adepan.vertex(300, 600, 0);
+  Adepan.vertex(225, 300, 0);
+  Adepan.vertex(150, 600, 0);
+  Adepan.vertex(50, 600, 0);
+  Adepan.vertex(150, 200, 0);
+  Adepan.endShape(CLOSE);
+
+  PShape Ahorizontaldepan = createShape();
+  Ahorizontaldepan.beginShape();
+  Ahorizontaldepan.fill(200, 30, 255);
+  Ahorizontaldepan.vertex(198, 400, 0);
+  Ahorizontaldepan.vertex(252, 400, 0);
+  Ahorizontaldepan.vertex(265, 450, 0);
+  Ahorizontaldepan.vertex(185, 450, 0);
+  Ahorizontaldepan.endShape(CLOSE);
+  
+  // Back face of A
+  PShape Abelakang = createShape();
+  Abelakang.beginShape();
+  Abelakang.fill(200, 30, 255);
+  Abelakang.vertex(150, 200, -50);
+  Abelakang.vertex(300, 200, -50);
+  Abelakang.vertex(400, 600, -50);
+  Abelakang.vertex(300, 600, -50);
+  Abelakang.vertex(225, 300, -50);
+  Abelakang.vertex(150, 600, -50);
+  Abelakang.vertex(50, 600, -50);
+  Abelakang.vertex(150, 200, -50);
+  Abelakang.endShape(CLOSE);
+
+  PShape Ahorizontalbelakang = createShape();
+  Ahorizontalbelakang.beginShape();
+  Ahorizontalbelakang.fill(200, 30, 255);
+  Ahorizontalbelakang.vertex(198, 400, -50);
+  Ahorizontalbelakang.vertex(252, 400, -50);
+  Ahorizontalbelakang.vertex(265, 450, -50);
+  Ahorizontalbelakang.vertex(185, 450, -50);
+  Ahorizontalbelakang.endShape(CLOSE);
+
+  // Sides of A
+  addSide(Adepan, Abelakang);
+  addSide(Ahorizontaldepan, Ahorizontalbelakang);
+
+  Aswangga.addChild(Adepan);
+  Aswangga.addChild(Ahorizontaldepan);
+  Aswangga.addChild(Abelakang);
+  Aswangga.addChild(Ahorizontalbelakang);
+}
+
+void createLetterW() {
+  // Front face of W
+  PShape Wdepan = createShape();
+  Wdepan.beginShape();
+  Wdepan.fill(200, 10, 255);
+  Wdepan.vertex(850, 200, 0);
+  Wdepan.vertex(950, 200, 0);
+  Wdepan.vertex(850, 600, 0);
+  Wdepan.vertex(750, 600, 0);
+  Wdepan.vertex(700, 350, 0);
+  Wdepan.vertex(650, 600, 0);
+  Wdepan.vertex(550, 600, 0);
+  Wdepan.vertex(450, 200, 0);
+  Wdepan.vertex(550, 200, 0);
+  Wdepan.vertex(600, 450, 0);
+  Wdepan.vertex(650, 200, 0);
+  Wdepan.vertex(750, 200, 0);
+  Wdepan.vertex(800, 450, 0);
+  Wdepan.vertex(850, 200, 0);
+  Wdepan.endShape(CLOSE);
+  
+  // Back face of W
+  PShape Wbelakang = createShape();
+  Wbelakang.beginShape();
+  Wbelakang.fill(200, 10, 255);
+  Wbelakang.vertex(850, 200, -50);
+  Wbelakang.vertex(950, 200, -50);
+  Wbelakang.vertex(850, 600, -50);
+  Wbelakang.vertex(750, 600, -50);
+  Wbelakang.vertex(700, 350, -50);
+  Wbelakang.vertex(650, 600, -50);
+  Wbelakang.vertex(550, 600, -50);
+  Wbelakang.vertex(450, 200, -50);
+  Wbelakang.vertex(550, 200, -50);
+  Wbelakang.vertex(600, 450, -50);
+  Wbelakang.vertex(650, 200, -50);
+  Wbelakang.vertex(750, 200, -50);
+  Wbelakang.vertex(800, 450, -50);
+  Wbelakang.vertex(850, 200, -50);
+  Wbelakang.endShape(CLOSE);
+  
+  // Sides of W
+  addSide(Wdepan, Wbelakang);
+
+  Aswangga.addChild(Wdepan);
+  Aswangga.addChild(Wbelakang);
+}
+
+void addSide(PShape front, PShape back) {
+  int vertexCount = front.getVertexCount();
+  for (int i = 0; i < vertexCount; i++) {
+    PVector v1 = front.getVertex(i);
+    PVector v2 = front.getVertex((i + 1) % vertexCount);
+    PVector v3 = back.getVertex((i + 1) % vertexCount);
+    PVector v4 = back.getVertex(i);
+    
+    PShape side = createShape();
+    side.beginShape();
+    side.fill(200, 10, 255);
+    side.vertex(v1.x, v1.y, v1.z);
+    side.vertex(v2.x, v2.y, v2.z);
+    side.vertex(v3.x, v3.y, v3.z);
+    side.vertex(v4.x, v4.y, v4.z);
+    side.endShape(CLOSE);
+    
+    Aswangga.addChild(side);
+  }
 }
 
 void centerObject(PShape obj) {
